@@ -6,7 +6,9 @@
 
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
+#include "freertos/semphr.h"
 
+extern SemaphoreHandle_t xSemaphore;
 
 static void serial_cli_task(void *pvParameters) {
     
@@ -32,7 +34,7 @@ static void serial_cli_task(void *pvParameters) {
         } else {
 
             if(strcmp(input_buffer, "temp") == 0) {
-                printf("The internal temperature is %.2f \n", get_latest_temperature());
+                xSemaphoreGive(xSemaphore);
             } else {
                 printf("Unknown command: use \"temp\" to read internal temp.\n");
             }

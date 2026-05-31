@@ -14,6 +14,7 @@ static void temp_monitor_task(void *pvParameters) {
     temperature_sensor_enable(temp_sensor);
 
     while(1) {
+        
         float tsens_out;
         
         if (temperature_sensor_get_celsius(temp_sensor, &tsens_out) == ESP_OK) {
